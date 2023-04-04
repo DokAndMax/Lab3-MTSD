@@ -1,4 +1,4 @@
-FROM golang:1.20.2-alpine
+FROM golang:1.20.2-bullseye AS builder
 
 WORKDIR /opt/application
 
@@ -9,8 +9,18 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o build/lab3golang
+ENV CGO_ENABLED=0
+
+RUN GOOS=linux go build -o build/lab3golang
+
+FROM scratch
+
+WORKDIR /opt/application
+
+COPY --from=builder /opt/application/templates ./templates
+
+COPY --from=builder /opt/application/build/lab3golang .
 
 EXPOSE 8080
 
-CMD ["./build/lab3golang", "serve"]
+CMD ["/opt/application/lab3golang", "serve"]
