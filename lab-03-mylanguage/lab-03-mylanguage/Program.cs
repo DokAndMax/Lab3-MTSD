@@ -59,9 +59,9 @@ internal class Program
     {
         HttpListener server = new();
 
-        server.Prefixes.Add("http://127.0.0.1:8080/");
+        server.Prefixes.Add("http://*:8080/");
         server.Start();
-        Console.WriteLine("Listening http://127.0.0.1:8080/");
+        Console.WriteLine("Listening http://*:8080/");
 
         while (true)
         {
