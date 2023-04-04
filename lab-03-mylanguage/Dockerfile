@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS build
 
 WORKDIR /source
 
@@ -12,7 +12,7 @@ RUN dotnet build lab-03-mylanguage.csproj -c Release -o /app/build
 
 RUN dotnet publish lab-03-mylanguage.csproj -c Release -o /app/publish --no-restore
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/runtime:7.0-alpine
 
 WORKDIR /app
 
