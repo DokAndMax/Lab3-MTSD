@@ -13,7 +13,7 @@ ENV CGO_ENABLED=0
 
 RUN GOOS=linux go build -o build/lab3golang
 
-FROM scratch
+FROM gcr.io/distroless/static
 
 WORKDIR /opt/application
 
