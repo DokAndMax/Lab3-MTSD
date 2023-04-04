@@ -8,13 +8,15 @@ RUN dotnet restore lab-03-mylanguage.csproj
 
 COPY ./lab-03-mylanguage .
 
-RUN dotnet publish lab-03-mylanguage.csproj -c Release -o /app --no-restore
+RUN dotnet build lab-03-mylanguage.csproj -c Release -o /app/build
 
-FROM mcr.microsoft.com/dotnet/runtime:7.0
+RUN dotnet publish lab-03-mylanguage.csproj -c Release -o /app/publish --no-restore
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
 
 WORKDIR /app
 
-COPY --from=build /app .
+COPY --from=build /app/publish .
 
 EXPOSE 8080
 
